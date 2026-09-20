@@ -34,26 +34,22 @@ export const useLoginPage = () => {
       return
     }
 
-    window.grecaptcha.ready(() => {
-      if (!recaptchaElement.value || recaptchaWidgetId.value !== null) return
-
-      recaptchaWidgetId.value = window.grecaptcha.render(recaptchaElement.value, {
-        sitekey: config.public.recaptchaSiteKey,
-        callback: (tokenValue) => {
-          recaptchaToken.value = tokenValue
-        },
-        'expired-callback': () => {
-          recaptchaToken.value = ''
-        },
-        'error-callback': () => {
-          recaptchaToken.value = ''
-          Swal.fire({
-            icon: 'error',
-            title: 'reCAPTCHA unavailable',
-            text: 'Unable to contact Google reCAPTCHA. Disable ad blocking for this site, then reload the page.'
-          })
-        }
-      })
+    recaptchaWidgetId.value = window.grecaptcha.render(recaptchaElement.value, {
+      sitekey: config.public.recaptchaSiteKey,
+      callback: (tokenValue) => {
+        recaptchaToken.value = tokenValue
+      },
+      'expired-callback': () => {
+        recaptchaToken.value = ''
+      },
+      'error-callback': () => {
+        recaptchaToken.value = ''
+        Swal.fire({
+          icon: 'error',
+          title: 'reCAPTCHA unavailable',
+          text: 'Unable to contact Google reCAPTCHA. Disable ad blocking for this site, then reload the page.'
+        })
+      }
     })
   }
   
@@ -68,27 +64,29 @@ export const useLoginPage = () => {
       return
     }
   
-    const existingScript = document.querySelector('script[data-recaptcha-script]')
-  
-    if (!existingScript) {
-      const script = document.createElement('script')
-      script.src = 'https://www.recaptcha.net/recaptcha/api.js?render=explicit'
-      script.async = true
-      script.defer = true
-      script.dataset.recaptchaScript = 'true'
-      script.addEventListener('load', renderRecaptcha, { once: true })
-      script.addEventListener('error', () => {
-        Swal.fire({
-          icon: 'error',
-          title: 'reCAPTCHA unavailable',
-          text: 'The reCAPTCHA script was blocked. Disable ad blocking for this site, then reload the page.'
-        })
-      }, { once: true })
-      document.head.appendChild(script)
-      return
+    const callbackName = 'onMiniProjectRecaptchaLoaded'
+    window[callbackName] = () => {
+      renderRecaptcha()
+      delete window[callbackName]
     }
 
-    existingScript.addEventListener('load', renderRecaptcha, { once: true })
+    const existingScript = document.querySelector('script[data-recaptcha-script]')
+    if (existingScript) existingScript.remove()
+
+    const script = document.createElement('script')
+    script.src = `https://www.recaptcha.net/recaptcha/api.js?onload=${callbackName}&render=explicit`
+    script.async = true
+    script.defer = true
+    script.dataset.recaptchaScript = 'true'
+    script.addEventListener('error', () => {
+      delete window[callbackName]
+      Swal.fire({
+        icon: 'error',
+        title: 'reCAPTCHA unavailable',
+        text: 'The reCAPTCHA script was blocked. Disable ad blocking for this site, then reload the page.'
+      })
+    }, { once: true })
+    document.head.appendChild(script)
   }
   
   const resetRecaptcha = () => {
