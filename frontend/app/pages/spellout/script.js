@@ -206,7 +206,9 @@ export const useSpelloutPage = () => {
   
   const handleInput = (event) => {
     const value = event.target.value.replace(/\D/g, '')
-  
+
+    result.value = ''
+    amountError.value = ''
     amount.value = value
   }
   
