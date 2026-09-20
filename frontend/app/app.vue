@@ -1,7 +1,9 @@
 <template>
   <NuxtLayout>
     <NuxtRouteAnnouncer />
-    <NuxtPage />
+    <Transition name="slide" mode="out-in">
+      <NuxtPage :page-key="route => route.fullPath" />
+    </Transition>
   </NuxtLayout>
 </template>
 
@@ -26,6 +28,11 @@ html, body, #__nuxt {
   background: var(--app-bg);
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   color: var(--app-text);
   font-family: "DM Sans", sans-serif;
@@ -42,6 +49,27 @@ button, input, select, textarea {
 button, nav a, .nav-item { font-weight: 600 !important; }
 
 .app-header { background: var(--app-header); color: #211f1e; }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 400ms ease;
+}
+
+.slide-enter-from {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-50%);
+}
 
 @media (max-width: 767px) {
   input, select, textarea {
