@@ -1,0 +1,37 @@
+* { box-sizing: border-box; }
+.page { min-height: 100vh; background: var(--app-bg); color: var(--app-text); }
+.login-hero { padding: 56px 24px 72px; text-align: center; border-radius: 0 0 26px 26px; }
+.title { margin: 0; color: #fff; text-align: center; font-size: 28px; font-weight: 600; line-height: 1.2; }
+.subtitle { margin: 8px auto 0; max-width: 340px; color: rgb(255 255 255 / 85%); font-size: 15px; line-height: 1.5; text-align: center; }
+.login-card { width: min(100%, 430px); margin: -44px auto 40px; padding: 28px 22px 32px; border: 1px solid var(--app-border); border-radius: 16px; background: var(--app-surface); box-shadow: var(--app-shadow); }
+form { display: grid; gap: 18px; }
+label { display: grid; gap: 8px; font-size: 14px; font-weight: 500; }
+input { width: 100%; min-height: 56px; padding: 14px 16px; border: 1px solid var(--app-border); border-radius: 15px; outline: none; background: #fff; font-size: 16px; }
+input:focus { border-color: var(--app-primary); box-shadow: 0 0 0 3px rgb(37 99 220 / 10%); }
+button { min-height: 54px; border: 0; border-radius: 15px; background: var(--app-primary); color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: .65; cursor: not-allowed; }
+.captcha-container { display: grid; gap: 8px; font-weight: 700; }
+.recaptcha-widget { min-height: 78px; overflow: hidden; }
+.field-error { color: #dc2626; font-size: 12px; font-weight: 400; line-height: 1.4; }
+
+
+.page { background: #1d1d1f; color: #fff; }
+.login-hero { background: #f3a66f; color: #211f1e; }
+.login-hero { border-radius: 0 0 26px 26px; }
+.title { color: #211f1e; }
+.subtitle { color: rgb(33 31 30 / 68%); }
+.login-card { border-color: #414145; background: #242426; box-shadow: none; }
+input { border-color: #414145; background: #29292b; color: #fff; }
+input::placeholder { color: #77737a; }
+input:focus { border-color: #f3a66f; box-shadow: none; }
+button { background: #f3a66f; color: #211f1e; }
+
+@media (min-width: 768px) {
+  .page {
+    width: min(100%, 640px);
+    margin: 0 auto;
+  }
+
+  .login-hero { padding: 64px 40px 82px; }
+  .login-card { width: min(calc(100% - 48px), 460px); padding: 32px 28px 36px; }
+}

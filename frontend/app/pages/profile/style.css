@@ -1,0 +1,10 @@
+* { box-sizing: border-box; }
+.profile-page { width: min(100%, 480px); min-height: 100vh; margin: 0 auto; overflow: hidden; background: #1d1d1f; color: #fff; }
+.profile-content { width: calc(100% - 40px); margin: 0 auto; padding: 18px 0 40px; }
+.error-card button { width: 100%; min-height: 50px; margin-top: 22px; border: 1px solid #444145; border-radius: 14px; background: #29292b; color: #f3a66f; cursor: pointer; }
+.state-message, .error-card { padding: 30px 0; color: #9c989f; text-align: center; }
+
+@media (min-width: 768px) {
+  .profile-page { width: min(100%, 640px); }
+  .profile-content { width: calc(100% - 64px); }
+}

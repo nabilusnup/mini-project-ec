@@ -1,0 +1,231 @@
+* {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+
+  background: var(--app-bg);
+
+  font-family: inherit;
+}
+
+.page-hero {
+  padding: 12px 18px 42px;
+  text-align: center;
+  border-radius: 0 0 26px 26px;
+}
+
+.hero-subtitle {
+  margin: 8px auto 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: 14px;
+}
+
+.card {
+  min-height: calc(100vh - 130px);
+
+  padding: 32px 20px;
+
+  background: white;
+
+  border-radius: 40px;
+
+  text-align: center;
+}
+
+.illustration {
+  width: 72px;
+  height: 72px;
+
+  margin: 12px auto 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.illustration img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.page-title {
+  display: block;
+  margin: 0;
+
+  color: #374151;
+
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.description {
+  max-width: 400px;
+
+  margin: 8px auto 40px;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+.form-section {
+  max-width: 420px;
+
+  margin: 0 auto;
+}
+
+.form-section label {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #111827;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.form-section input {
+  width: 100%;
+
+  padding: 15px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  font-size: 16px;
+
+  text-align: center;
+}
+
+.form-section input:focus {
+  border-color: #60a5fa;
+}
+
+.btn-generate {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #93ddf7;
+
+  color: #374151;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.btn-save {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 14px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-save:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+
+.field-error {
+  display: block;
+  margin-top: 8px;
+  color: #dc2626;
+  font-size: 12px;
+  text-align: left;
+}
+
+.result {
+  margin-top: 24px;
+
+  padding: 18px;
+
+  border-radius: 12px;
+
+  background: #f3f4f6;
+
+  text-align: left;
+}
+
+.result span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+.result strong {
+  color: #111827;
+
+  font-size: 16px;
+
+  line-height: 1.5;
+}
+
+
+@media (min-width: 768px) {
+  .page {
+    width: min(100%, 640px);
+    margin: 0 auto;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 600px;
+    min-height: auto;
+  }
+
+  .page-hero { padding-inline: 28px; }
+}
+
+.illustration { width: 72px; height: 72px; border-radius: 16px; background: rgb(255 255 255 / 18%); border: 1px solid rgb(255 255 255 / 35%); }
+.illustration img { width: 44px; height: 44px; }
+.page-title { color: #fff; }
+.card { width: min(100%, 600px); margin: -26px auto 30px; min-height: auto; border: 1px solid var(--app-border); border-radius: 16px; box-shadow: var(--app-shadow); }
+.form-section label { font-weight: 500; }
+.form-section input { min-height: 56px; border-color: var(--app-border); border-radius: 10px; }
+.form-section input:focus { border-color: var(--app-primary); box-shadow: 0 0 0 3px rgb(37 99 220 / 10%); }
+.btn-generate, .btn-save { background: var(--app-primary); color: #fff; }
+.btn-generate, .btn-save { border-radius: 10px; font-weight: 600; }
+.result { border-radius: 10px; }
+
+
+.page { background: #1d1d1f; color: #fff; }
+header { border-bottom-color: #38383b; background: #1d1d1f; color: #fff; }
+.card { background: #1d1d1f; color: #fff; }
+.illustration { background: #2d2927; color: #f3a66f; }
+.form-section input { border-color: #414145; background: #29292b; color: #fff; }
+.form-section input:focus { border-color: #f3a66f; box-shadow: none; }
+.btn-generate, .btn-save { background: #f3a66f; color: #211f1e; }
+.result { border-color: #39393c; background: #252527; color: #fff; }
+.result span { color: #aaa6ad; }
+.result strong { color: #fff; }
+.result + .btn-save { color: #211f1e; }

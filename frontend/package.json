@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fortawesome/fontawesome-free": "^7.3.1",
+    "nuxt": "^4.5.2",
+    "sweetalert2": "^11.26.25",
+    "vue": "^3.5.42",
+    "vue-router": "^5.3.1"
+  }
+}
