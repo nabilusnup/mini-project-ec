@@ -272,6 +272,8 @@ button:disabled {
   position: fixed;
   inset: 0;
   z-index: 1000;
+  max-width: 100vw;
+  overflow-x: hidden;
 
   display: flex;
   justify-content: center;
@@ -464,6 +466,19 @@ button:disabled {
   background: white;
 
   font-size: 16px;
+}
+
+.form-group input[type='date'] {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  text-align: left;
+}
+
+.form-group input[type='date']::-webkit-date-and-time-value {
+  min-width: 0;
+  margin: 0;
+  text-align: left;
 }
 
 .form-group input:focus,
