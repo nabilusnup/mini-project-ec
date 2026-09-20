@@ -1,5 +1,5 @@
 import { onMounted, ref } from 'vue'
-import Swal from 'sweetalert2'
+import { showAlert } from '../../utils/alert'
 
 export const useLoginPage = () => {
   const { $apiFetch } = useNuxtApp()
@@ -8,6 +8,8 @@ export const useLoginPage = () => {
   const email = ref('')
   
   const password = ref('')
+
+  const showPassword = ref(false)
   
   const fieldErrors = ref({})
   
@@ -44,7 +46,7 @@ export const useLoginPage = () => {
       },
       'error-callback': () => {
         recaptchaToken.value = ''
-        Swal.fire({
+        showAlert({
           icon: 'error',
           title: 'reCAPTCHA unavailable',
           text: 'Unable to contact Google reCAPTCHA. Disable ad blocking for this site, then reload the page.'
@@ -55,7 +57,7 @@ export const useLoginPage = () => {
   
   const loadRecaptcha = () => {
     if (!config.public.recaptchaSiteKey) {
-      Swal.fire({ icon: 'error', title: 'Configuration Error', text: 'Google reCAPTCHA site key is not configured.' })
+      showAlert({ icon: 'error', title: 'Configuration Error', text: 'Google reCAPTCHA site key is not configured.' })
       return
     }
   
@@ -80,7 +82,7 @@ export const useLoginPage = () => {
     script.dataset.recaptchaScript = 'true'
     script.addEventListener('error', () => {
       delete window[callbackName]
-      Swal.fire({
+      showAlert({
         icon: 'error',
         title: 'reCAPTCHA unavailable',
         text: 'The reCAPTCHA script was blocked. Disable ad blocking for this site, then reload the page.'
@@ -136,7 +138,7 @@ export const useLoginPage = () => {
         ])
       )
       if (!Object.keys(fieldErrors.value).length) {
-        await Swal.fire({ icon: 'error', title: 'Login Failed', text: error.data?.message ?? 'Login failed. Please try again.' })
+        await showAlert({ icon: 'error', title: 'Login Failed', text: error.data?.message ?? 'Login failed. Please try again.' })
       }
       resetRecaptcha()
     } finally {
@@ -146,5 +148,5 @@ export const useLoginPage = () => {
   
   onMounted(loadRecaptcha)
   
-  return { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login }
+  return { config, email, password, showPassword, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login }
 }

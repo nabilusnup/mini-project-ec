@@ -8,6 +8,10 @@ form { display: grid; gap: 18px; }
 label { display: grid; gap: 8px; font-size: 14px; font-weight: 500; }
 input { width: 100%; min-height: 56px; padding: 14px 16px; border: 1px solid var(--app-border); border-radius: 15px; outline: none; background: #fff; font-size: 16px; }
 input:focus { border-color: var(--app-primary); box-shadow: 0 0 0 3px rgb(37 99 220 / 10%); }
+.password-input { position: relative; display: block; }
+.password-input input { padding-right: 54px; }
+.password-toggle { position: absolute; top: 50%; right: 8px; width: 42px; min-height: 42px; padding: 0; transform: translateY(-50%); background: transparent; color: var(--app-muted); }
+.password-toggle:hover { color: var(--app-primary); }
 button { min-height: 54px; border: 0; border-radius: 15px; background: var(--app-primary); color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
 button:disabled { opacity: .65; cursor: not-allowed; }
 .captcha-container { display: grid; gap: 8px; font-weight: 700; }

@@ -1,5 +1,5 @@
 import { ref, computed, onMounted } from 'vue'
-import Swal from 'sweetalert2'
+import { showAlert } from '../../utils/alert'
 
 export const useSpelloutPage = () => {
   const { $apiFetch } = useNuxtApp()
@@ -52,7 +52,7 @@ export const useSpelloutPage = () => {
       })
       history.value = response.data ?? []
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to load conversion history.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to load conversion history.' })
     } finally {
       isLoadingHistory.value = false
     }
@@ -160,7 +160,7 @@ export const useSpelloutPage = () => {
   
   const saveResult = async () => {
     if (!result.value || !numericAmount.value) {
-      await Swal.fire({ icon: 'warning', title: 'Result Required', text: 'Click the Spell Out button first.' })
+      await showAlert({ icon: 'warning', title: 'Result Required', text: 'Click the Spell Out button first.' })
       return
     }
   
@@ -176,9 +176,9 @@ export const useSpelloutPage = () => {
       })
   
       await loadHistory()
-      await Swal.fire({ icon: 'success', title: 'Success', text: response.message })
+      await showAlert({ icon: 'success', title: 'Success', text: response.message })
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to save the result.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to save the result.' })
     } finally {
       isSaving.value = false
     }
@@ -196,9 +196,9 @@ export const useSpelloutPage = () => {
   
       selectedHistory.value = null
       await loadHistory()
-      await Swal.fire({ icon: 'success', title: 'Success', text: 'The result was deleted.' })
+      await showAlert({ icon: 'success', title: 'Success', text: 'The result was deleted.' })
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to delete the history entry.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to delete the history entry.' })
     } finally {
       isDeleting.value = false
     }

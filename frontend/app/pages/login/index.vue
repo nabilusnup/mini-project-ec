@@ -1,7 +1,7 @@
 <script setup>
 import { useLoginPage } from './script'
 
-const { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login } = useLoginPage()
+const { config, email, password, showPassword, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login } = useLoginPage()
 
 </script>
 
@@ -21,7 +21,18 @@ const { config, email, password, fieldErrors, isSubmitting, recaptchaElement, re
         </label>
         <label>
           <span>Password</span>
-          <input v-model="password" type="password" autocomplete="current-password" placeholder="Enter password">
+          <span class="password-input">
+            <input v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" placeholder="Enter password">
+            <button
+              type="button"
+              class="password-toggle"
+              :aria-label="showPassword ? 'Hide password' : 'Show password'"
+              :aria-pressed="showPassword"
+              @click="showPassword = !showPassword"
+            >
+              <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" aria-hidden="true"></i>
+            </button>
+          </span>
           <small v-if="fieldErrors.password" class="field-error">{{ fieldErrors.password }}</small>
         </label>
 

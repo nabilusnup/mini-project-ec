@@ -1,5 +1,5 @@
 import { ref, computed, onBeforeUnmount, onMounted, watch } from 'vue'
-import Swal from 'sweetalert2'
+import { showAlert } from '../../utils/alert'
 
 export const useEmployeesPage = () => {
   const { $apiFetch } = useNuxtApp()
@@ -98,6 +98,10 @@ export const useEmployeesPage = () => {
   const isDeleting = ref(false)
   
   const isLoadingDetail = ref(false)
+
+  const showPassword = ref(false)
+
+  const showPasswordConfirmation = ref(false)
   
   const defaultForm = () => ({
     employee_id: '',
@@ -131,6 +135,8 @@ export const useEmployeesPage = () => {
   
   const resetForm = () => {
     form.value = defaultForm()
+    showPassword.value = false
+    showPasswordConfirmation.value = false
   
     dataKabupaten.value = []
     dataKecamatan.value = []
@@ -158,7 +164,7 @@ export const useEmployeesPage = () => {
       dataProvinsi.value = await res.json()
     } catch (err) {
       if (err.name === 'AbortError') return
-      await Swal.fire({ icon: 'error', title: 'Failed', text: 'Failed to load provinces. Please try again later.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: 'Failed to load provinces. Please try again later.' })
     }
   }
   
@@ -184,7 +190,7 @@ export const useEmployeesPage = () => {
       dataKabupaten.value = await res.json()
     } catch (err) {
       if (err.name === 'AbortError') return
-      await Swal.fire({ icon: 'error', title: 'Failed', text: 'Failed to load cities/regencies. Please try again later.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: 'Failed to load cities/regencies. Please try again later.' })
     }
   }
   
@@ -209,7 +215,7 @@ export const useEmployeesPage = () => {
       dataKecamatan.value = await res.json()
     } catch (err) {
       if (err.name === 'AbortError') return
-      await Swal.fire({ icon: 'error', title: 'Failed', text: 'Failed to load districts. Please try again later.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: 'Failed to load districts. Please try again later.' })
     }
   }
   
@@ -233,7 +239,7 @@ export const useEmployeesPage = () => {
       dataKelurahan.value = await res.json()
     } catch (err) {
       if (err.name === 'AbortError') return
-      await Swal.fire({ icon: 'error', title: 'Failed', text: 'Failed to load villages. Please try again later.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: 'Failed to load villages. Please try again later.' })
     }
   }
   
@@ -520,7 +526,7 @@ export const useEmployeesPage = () => {
   
       closeFormModal()
   
-      await Swal.fire({ icon: 'success', title: 'Success', text: message })
+      await showAlert({ icon: 'success', title: 'Success', text: message })
     } catch (err) {
       const errors = err?.data?.errors ?? {}
       fieldErrors.value = Object.fromEntries(
@@ -531,7 +537,7 @@ export const useEmployeesPage = () => {
       )
   
       if (!Object.keys(fieldErrors.value).length) {
-        await Swal.fire({
+        await showAlert({
           icon: 'error',
           title: 'Failed',
           text: err?.data?.message || 'Something went wrong while saving the employee'
@@ -556,7 +562,7 @@ export const useEmployeesPage = () => {
   
       detailEmployee.value = response.data
     } catch (err) {
-      await Swal.fire({
+      await showAlert({
         icon: 'error',
         title: 'Failed',
         text: err?.data?.message || 'Failed to load employee detail'
@@ -617,9 +623,9 @@ export const useEmployeesPage = () => {
   
       await refresh()
   
-      await Swal.fire({ icon: 'success', title: 'Success', text: 'Employee deleted successfully' })
+      await showAlert({ icon: 'success', title: 'Success', text: 'Employee deleted successfully' })
     } catch (err) {
-      await Swal.fire({
+      await showAlert({
         icon: 'error',
         title: 'Failed',
         text: err?.data?.message || 'Failed to delete employee'
@@ -638,5 +644,5 @@ export const useEmployeesPage = () => {
     regionController.abort()
   })
 
-  return { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmployees, formatSalary, formattedSalary, avatarInitial, salaryRanges, selectedSalaryRange, showFormModal, showDetailModal, showDeleteModal, modalMode, editingEmployeeId, detailEmployee, selectedDeleteEmployee, isSubmitting, isDeleting, isLoadingDetail, defaultForm, form, fieldErrors, resetForm, dataProvinsi, dataKabupaten, dataKecamatan, dataKelurahan, getDataProvinsi, getDataKabupaten, getDataKecamatan, getDataKelurahan, onProvinceChange, onCityChange, onDistrictChange, onVillageChange, findLocationByName, loadLocationForEdit, openAddModal, openEditModal, closeFormModal, submitEmployee, openShowModal, closeDetailModal, editFromDetail, deleteFromDetail, openDeleteModal, closeDeleteModal, deleteEmployee }
+  return { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmployees, formatSalary, formattedSalary, avatarInitial, salaryRanges, selectedSalaryRange, showFormModal, showDetailModal, showDeleteModal, modalMode, editingEmployeeId, detailEmployee, selectedDeleteEmployee, isSubmitting, isDeleting, isLoadingDetail, showPassword, showPasswordConfirmation, defaultForm, form, fieldErrors, resetForm, dataProvinsi, dataKabupaten, dataKecamatan, dataKelurahan, getDataProvinsi, getDataKabupaten, getDataKecamatan, getDataKelurahan, onProvinceChange, onCityChange, onDistrictChange, onVillageChange, findLocationByName, loadLocationForEdit, openAddModal, openEditModal, closeFormModal, submitEmployee, openShowModal, closeDetailModal, editFromDetail, deleteFromDetail, openDeleteModal, closeDeleteModal, deleteEmployee }
 }

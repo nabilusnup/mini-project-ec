@@ -401,6 +401,31 @@ button:disabled {
   padding-left: 40px;
 }
 
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 54px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 42px;
+  min-height: 42px;
+  padding: 0;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  background: transparent;
+  color: #9c989f;
+}
+
+.password-toggle:hover {
+  color: var(--app-primary);
+}
+
 .field-error {
   color: #dc2626;
   font-size: 12px;

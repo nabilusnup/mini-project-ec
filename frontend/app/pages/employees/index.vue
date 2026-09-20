@@ -1,7 +1,7 @@
 <script setup>
 import { useEmployeesPage } from './script'
 
-const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmployees, formatSalary, formattedSalary, avatarInitial, salaryRanges, selectedSalaryRange, showFormModal, showDetailModal, showDeleteModal, modalMode, editingEmployeeId, detailEmployee, selectedDeleteEmployee, isSubmitting, isDeleting, isLoadingDetail, defaultForm, form, fieldErrors, resetForm, dataProvinsi, dataKabupaten, dataKecamatan, dataKelurahan, getDataProvinsi, getDataKabupaten, getDataKecamatan, getDataKelurahan, onProvinceChange, onCityChange, onDistrictChange, onVillageChange, findLocationByName, loadLocationForEdit, openAddModal, openEditModal, closeFormModal, submitEmployee, openShowModal, closeDetailModal, editFromDetail, deleteFromDetail, openDeleteModal, closeDeleteModal, deleteEmployee } = useEmployeesPage()
+const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmployees, formatSalary, formattedSalary, avatarInitial, salaryRanges, selectedSalaryRange, showFormModal, showDetailModal, showDeleteModal, modalMode, editingEmployeeId, detailEmployee, selectedDeleteEmployee, isSubmitting, isDeleting, isLoadingDetail, showPassword, showPasswordConfirmation, defaultForm, form, fieldErrors, resetForm, dataProvinsi, dataKabupaten, dataKecamatan, dataKelurahan, getDataProvinsi, getDataKabupaten, getDataKecamatan, getDataKelurahan, onProvinceChange, onCityChange, onDistrictChange, onVillageChange, findLocationByName, loadLocationForEdit, openAddModal, openEditModal, closeFormModal, submitEmployee, openShowModal, closeDetailModal, editFromDetail, deleteFromDetail, openDeleteModal, closeDeleteModal, deleteEmployee } = useEmployeesPage()
 </script>
 
 <template>
@@ -305,15 +305,26 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
               </span>
             </label>
 
-            <input
-              v-model="form.password"
-              type="password"
-              :placeholder="
-                modalMode === 'add'
-                  ? 'Minimum 6 characters'
-                  : 'Leave blank if unchanged'
-              "
-            >
+            <div class="password-input">
+              <input
+                v-model="form.password"
+                :type="showPassword ? 'text' : 'password'"
+                :placeholder="
+                  modalMode === 'add'
+                    ? 'Minimum 6 characters'
+                    : 'Leave blank if unchanged'
+                "
+              >
+              <button
+                type="button"
+                class="password-toggle"
+                :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                :aria-pressed="showPassword"
+                @click="showPassword = !showPassword"
+              >
+                <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" aria-hidden="true"></i>
+              </button>
+            </div>
             <small v-if="fieldErrors.password" class="field-error">{{ fieldErrors.password }}</small>
           </div>
 
@@ -328,15 +339,26 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
               </span>
             </label>
 
-            <input
-              v-model="form.password_confirmation"
-              type="password"
-              :placeholder="
-                modalMode === 'add'
-                  ? 'Retype password'
-                  : 'Retype only when changing password'
-              "
-            >
+            <div class="password-input">
+              <input
+                v-model="form.password_confirmation"
+                :type="showPasswordConfirmation ? 'text' : 'password'"
+                :placeholder="
+                  modalMode === 'add'
+                    ? 'Retype password'
+                    : 'Retype only when changing password'
+                "
+              >
+              <button
+                type="button"
+                class="password-toggle"
+                :aria-label="showPasswordConfirmation ? 'Hide password confirmation' : 'Show password confirmation'"
+                :aria-pressed="showPasswordConfirmation"
+                @click="showPasswordConfirmation = !showPasswordConfirmation"
+              >
+                <i :class="showPasswordConfirmation ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" aria-hidden="true"></i>
+              </button>
+            </div>
             <small v-if="fieldErrors.password_confirmation" class="field-error">
               {{ fieldErrors.password_confirmation }}
             </small>

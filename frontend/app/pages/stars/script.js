@@ -1,5 +1,5 @@
 import { computed, onMounted, ref } from 'vue'
-import Swal from 'sweetalert2'
+import { showAlert } from '../../utils/alert'
 
 export const useStarsPage = () => {
   const { $apiFetch } = useNuxtApp()
@@ -64,7 +64,7 @@ export const useStarsPage = () => {
       })
       history.value = response.data ?? []
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to load stars history.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to load stars history.' })
     } finally {
       isLoadingHistory.value = false
     }
@@ -83,9 +83,9 @@ export const useStarsPage = () => {
       })
   
       await loadHistory()
-      await Swal.fire({ icon: 'success', title: 'Success', text: response.message })
+      await showAlert({ icon: 'success', title: 'Success', text: response.message })
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to save stars result.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to save stars result.' })
     } finally {
       isSaving.value = false
     }
@@ -103,9 +103,9 @@ export const useStarsPage = () => {
   
       selectedHistory.value = null
       await loadHistory()
-      await Swal.fire({ icon: 'success', title: 'Success', text: 'Stars history deleted successfully' })
+      await showAlert({ icon: 'success', title: 'Success', text: 'Stars history deleted successfully' })
     } catch (error) {
-      await Swal.fire({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to delete stars history.' })
+      await showAlert({ icon: 'error', title: 'Failed', text: error.data?.message ?? 'Failed to delete stars history.' })
     } finally {
       isDeleting.value = false
     }
