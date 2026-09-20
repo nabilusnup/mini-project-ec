@@ -130,6 +130,23 @@ export const useEmployeesPage = () => {
   })
   
   const form = ref(defaultForm())
+
+  watch(() => form.value.birth_date, birthDate => {
+    if (!birthDate) {
+      form.value.age = ''
+      return
+    }
+
+    const [year, month, day] = birthDate.split('-').map(Number)
+    const today = new Date()
+    let age = today.getFullYear() - year
+
+    if (today.getMonth() + 1 < month || (today.getMonth() + 1 === month && today.getDate() < day)) {
+      age--
+    }
+
+    form.value.age = Math.max(0, age)
+  })
   
   const fieldErrors = ref({})
   

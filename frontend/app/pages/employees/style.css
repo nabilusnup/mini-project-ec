@@ -282,6 +282,7 @@ button:disabled {
 
 .modal-container {
   width: 100%;
+  min-width: 0;
   max-height: 92vh;
 
   display: flex;
@@ -351,10 +352,12 @@ button:disabled {
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
+  min-width: 0;
 
   padding: 16px;
 
   overflow-y: auto;
+  overflow-x: hidden;
 
   overscroll-behavior: contain;
 }
@@ -363,6 +366,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-width: 0;
 }
 
 .form-group label {
@@ -401,6 +405,17 @@ button:disabled {
   padding-left: 40px;
 }
 
+.required-label::after {
+  margin-left: 3px;
+  color: #ef4444;
+  content: '*';
+}
+
+.required-mark {
+  margin-left: 3px;
+  color: #ef4444;
+}
+
 .password-input {
   position: relative;
 }
@@ -436,6 +451,8 @@ button:disabled {
 .form-group textarea,
 .form-group select {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 
   padding: 12px 14px;
 

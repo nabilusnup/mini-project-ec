@@ -117,7 +117,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
 
         <div class="modal-body">
 <div class="form-group">
-            <label>Employee ID</label>
+            <label class="required-label">Employee ID</label>
 
             <input
               v-model="form.employee_id"
@@ -128,7 +128,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.employee_id" class="field-error">{{ fieldErrors.employee_id }}</small>
           </div>
 <div class="form-group">
-            <label>Name</label>
+            <label class="required-label">Name</label>
 
             <input
               v-model="form.name"
@@ -138,7 +138,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.name" class="field-error">{{ fieldErrors.name }}</small>
           </div>
 <div class="form-group">
-            <label>Birth Date</label>
+            <label class="required-label">Birth Date</label>
 
             <input
               v-model="form.birth_date"
@@ -147,7 +147,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.birth_date" class="field-error">{{ fieldErrors.birth_date }}</small>
           </div>
 <div class="form-group">
-            <label>Age</label>
+            <label class="required-label">Age</label>
 
             <input
               v-model="form.age"
@@ -157,7 +157,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.age" class="field-error">{{ fieldErrors.age }}</small>
           </div>
           <div class="form-group full-width">
-            <label>Address</label>
+            <label class="required-label">Address</label>
 
             <textarea
               v-model="form.address"
@@ -166,7 +166,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.address" class="field-error">{{ fieldErrors.address }}</small>
           </div>
 <div class="form-group">
-            <label>Province</label>
+            <label class="required-label">Province</label>
 
             <select
               v-model="form.province_id"
@@ -187,7 +187,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.province" class="field-error">{{ fieldErrors.province }}</small>
           </div>
 <div class="form-group">
-            <label>City / Regency</label>
+            <label class="required-label">City / Regency</label>
 
             <select
               v-model="form.city_id"
@@ -209,7 +209,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.city" class="field-error">{{ fieldErrors.city }}</small>
           </div>
 <div class="form-group">
-            <label>District</label>
+            <label class="required-label">District</label>
 
             <select
               v-model="form.district_id"
@@ -231,7 +231,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.district" class="field-error">{{ fieldErrors.district }}</small>
           </div>
 <div class="form-group">
-            <label>Village</label>
+            <label class="required-label">Village</label>
 
             <select
               v-model="form.village_id"
@@ -253,7 +253,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.village" class="field-error">{{ fieldErrors.village }}</small>
           </div>
 <div class="form-group">
-            <label>Position</label>
+            <label class="required-label">Position</label>
 
             <select
               v-model="form.position"
@@ -272,7 +272,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             </small>
           </div>
 <div class="form-group">
-            <label>Salary</label>
+            <label class="required-label">Salary</label>
 
             <div class="salary-input">
               <input
@@ -285,7 +285,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
             <small v-if="fieldErrors.salary" class="field-error">{{ fieldErrors.salary }}</small>
           </div>
 <div class="form-group">
-            <label>Email</label>
+            <label class="required-label">Email</label>
 
             <input
               v-model="form.email"
@@ -297,6 +297,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
 <div class="form-group">
             <label>
               Password
+              <span v-if="modalMode === 'add'" class="required-mark">*</span>
               <span
                 v-if="modalMode === 'edit'"
                 class="optional"
@@ -331,6 +332,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
           <div class="form-group full-width">
             <label>
               Retype Password
+              <span v-if="modalMode === 'add'" class="required-mark">*</span>
               <span
                 v-if="modalMode === 'edit'"
                 class="optional"
