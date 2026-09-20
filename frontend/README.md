@@ -23,7 +23,7 @@ Isi `frontend/.env`:
 
 ```env
 NUXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
-NUXT_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
+NUXT_PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
 ```
 
 Jalankan development server:
@@ -45,16 +45,16 @@ Buka `http://localhost:3000`.
 
 ## Environment variables
 
-| Variable                   | Keterangan                                      |
-| -------------------------- | ----------------------------------------------- |
-| `NUXT_PUBLIC_API_BASE_URL` | URL publik backend Laravel tanpa akhiran `/api` |
-| `NUXT_RECAPTCHA_SITE_KEY`  | Site key Google reCAPTCHA                       |
+| Variable                         | Keterangan                                      |
+| -------------------------------- | ----------------------------------------------- |
+| `NUXT_PUBLIC_API_BASE_URL`       | URL publik backend Laravel tanpa akhiran `/api` |
+| `NUXT_PUBLIC_RECAPTCHA_SITE_KEY` | Site key Google reCAPTCHA                       |
 
 Contoh production:
 
 ```env
 NUXT_PUBLIC_API_BASE_URL=https://nama-backend.onrender.com
-NUXT_RECAPTCHA_SITE_KEY=your_production_site_key
+NUXT_PUBLIC_RECAPTCHA_SITE_KEY=your_production_site_key
 ```
 
 Karena kedua variable bersifat `PUBLIC`, jangan menaruh API key Elasticsearch
