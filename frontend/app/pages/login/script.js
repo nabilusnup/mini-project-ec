@@ -74,7 +74,7 @@ export const useLoginPage = () => {
     if (existingScript) existingScript.remove()
 
     const script = document.createElement('script')
-    script.src = `https://www.recaptcha.net/recaptcha/api.js?onload=${callbackName}&render=explicit`
+    script.src = `https://www.google.com/recaptcha/api.js?onload=${callbackName}&render=explicit`
     script.async = true
     script.defer = true
     script.dataset.recaptchaScript = 'true'
