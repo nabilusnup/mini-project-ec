@@ -1,7 +1,7 @@
 <script setup>
 import { useLoginPage } from './script'
 
-const { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, recaptchaTimer, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login } = useLoginPage()
+const { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login } = useLoginPage()
 
 </script>
 

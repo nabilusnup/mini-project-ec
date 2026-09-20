@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Swal from 'sweetalert2'
 
 export const useLoginPage = () => {
@@ -19,8 +19,6 @@ export const useLoginPage = () => {
   
   const recaptchaWidgetId = ref(null)
   
-  let recaptchaTimer = null
-  
   const token = useCookie('auth_token', {
     maxAge: 60 * 60 * 24,
     sameSite: 'lax'
@@ -32,22 +30,30 @@ export const useLoginPage = () => {
   })
   
   const renderRecaptcha = () => {
-    if (!window.grecaptcha || !recaptchaElement.value || recaptchaWidgetId.value !== null) {
+    if (!window.grecaptcha?.render || !recaptchaElement.value || recaptchaWidgetId.value !== null) {
       return
     }
-  
-    recaptchaWidgetId.value = window.grecaptcha.render(recaptchaElement.value, {
-      sitekey: config.public.recaptchaSiteKey,
-      callback: (tokenValue) => {
-        recaptchaToken.value = tokenValue
-      },
-      'expired-callback': () => {
-        recaptchaToken.value = ''
-      },
-      'error-callback': () => {
-        recaptchaToken.value = ''
-        Swal.fire({ icon: 'error', title: 'Failed', text: 'Google reCAPTCHA failed to load.' })
-      }
+
+    window.grecaptcha.ready(() => {
+      if (!recaptchaElement.value || recaptchaWidgetId.value !== null) return
+
+      recaptchaWidgetId.value = window.grecaptcha.render(recaptchaElement.value, {
+        sitekey: config.public.recaptchaSiteKey,
+        callback: (tokenValue) => {
+          recaptchaToken.value = tokenValue
+        },
+        'expired-callback': () => {
+          recaptchaToken.value = ''
+        },
+        'error-callback': () => {
+          recaptchaToken.value = ''
+          Swal.fire({
+            icon: 'error',
+            title: 'reCAPTCHA unavailable',
+            text: 'Unable to contact Google reCAPTCHA. Disable ad blocking for this site, then reload the page.'
+          })
+        }
+      })
     })
   }
   
@@ -57,7 +63,7 @@ export const useLoginPage = () => {
       return
     }
   
-    if (window.grecaptcha) {
+    if (window.grecaptcha?.render) {
       renderRecaptcha()
       return
     }
@@ -66,20 +72,23 @@ export const useLoginPage = () => {
   
     if (!existingScript) {
       const script = document.createElement('script')
-      script.src = 'https://www.google.com/recaptcha/api.js?render=explicit'
+      script.src = 'https://www.recaptcha.net/recaptcha/api.js?render=explicit'
       script.async = true
       script.defer = true
       script.dataset.recaptchaScript = 'true'
+      script.addEventListener('load', renderRecaptcha, { once: true })
+      script.addEventListener('error', () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'reCAPTCHA unavailable',
+          text: 'The reCAPTCHA script was blocked. Disable ad blocking for this site, then reload the page.'
+        })
+      }, { once: true })
       document.head.appendChild(script)
+      return
     }
-  
-    recaptchaTimer = window.setInterval(() => {
-      if (window.grecaptcha) {
-        window.clearInterval(recaptchaTimer)
-        recaptchaTimer = null
-        renderRecaptcha()
-      }
-    }, 200)
+
+    existingScript.addEventListener('load', renderRecaptcha, { once: true })
   }
   
   const resetRecaptcha = () => {
@@ -139,11 +148,5 @@ export const useLoginPage = () => {
   
   onMounted(loadRecaptcha)
   
-  onBeforeUnmount(() => {
-    if (recaptchaTimer) {
-      window.clearInterval(recaptchaTimer)
-    }
-  })
-
-  return { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, recaptchaTimer, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login }
+  return { config, email, password, fieldErrors, isSubmitting, recaptchaElement, recaptchaToken, recaptchaWidgetId, token, authUser, renderRecaptcha, loadRecaptcha, resetRecaptcha, login }
 }
