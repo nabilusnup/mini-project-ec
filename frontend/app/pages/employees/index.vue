@@ -312,7 +312,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
                 :type="showPassword ? 'text' : 'password'"
                 :placeholder="
                   modalMode === 'add'
-                    ? 'Minimum 6 characters'
+                    ? 'Create a strong password'
                     : 'Leave blank if unchanged'
                 "
               >
@@ -326,6 +326,7 @@ const { API_URL, authToken, authHeaders, search, employees, error, isLoadingEmpl
                 <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" aria-hidden="true"></i>
               </button>
             </div>
+            <small class="password-hint">Minimum 8 characters, including uppercase, lowercase, number, and symbol.</small>
             <small v-if="fieldErrors.password" class="field-error">{{ fieldErrors.password }}</small>
           </div>
 

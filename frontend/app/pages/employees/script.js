@@ -458,8 +458,8 @@ export const useEmployeesPage = () => {
       fieldErrors.value.password = 'Password is required.'
     }
 
-    if (form.value.password && form.value.password.length < 6) {
-      fieldErrors.value.password = 'Password must contain at least 6 characters.'
+    if (form.value.password && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(form.value.password)) {
+      fieldErrors.value.password = 'Use at least 8 characters with uppercase, lowercase, number, and symbol.'
     }
 
     if (modalMode.value === 'add' && !form.value.password_confirmation) {

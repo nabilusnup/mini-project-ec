@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class EmployeeController extends Controller
 {
@@ -99,6 +100,11 @@ class EmployeeController extends Controller
     private function rules(bool $partial = false): array
     {
         $required = $partial ? 'sometimes|required' : 'required';
+        $passwordRules = [
+            $partial ? 'sometimes' : 'required',
+            'string',
+            Password::min(8)->mixedCase()->numbers()->symbols(),
+        ];
 
         return [
             'employee_id' => $partial ? 'prohibited' : 'required|string',
@@ -115,7 +121,7 @@ class EmployeeController extends Controller
                 : ['required', 'string', Rule::in(array_keys(EmployeeService::POSITION_SALARY_RANGES))],
             'salary' => "{$required}|integer|min:0",
             'email' => "{$required}|email",
-            'password' => $partial ? 'sometimes|required|string|min:6' : 'required|string|min:6',
+            'password' => $passwordRules,
         ];
     }
 }

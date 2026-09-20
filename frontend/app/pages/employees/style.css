@@ -389,6 +389,12 @@ button:disabled {
   line-height: 1.4;
 }
 
+.password-hint {
+  color: #9c989f;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .salary-input {
   position: relative;
   display: flex;
